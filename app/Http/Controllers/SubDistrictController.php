@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\SubDistrict;
+use Illuminate\Http\Request;
+
+use Yajra\DataTables\Facades\DataTables;
+
+class SubDistrictController extends Controller
+{
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    //Single Action Cotroller hanya ada 1 fungsi "php artisan make:controller SubDistrictController -i"
+    public function __invoke(Request $request)
+    {   
+        if($request->ajax()){
+            $subDistricts = SubDistrict::query();
+
+            return DataTables::of($subDistricts)
+            ->addIndexColumn()
+            ->toJson();
+        }
+        
+
+        return view('sub-district.index');
+    }
+}
